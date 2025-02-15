@@ -16,8 +16,9 @@
      ```
 
 3. Por ultimo, digital
-   `    npm run devel
-`
+   ```
+     npm run devel
+   ```
    ¡Y listo! Con esto tienes el proyecto levantado para probar.
 
 ### Deuda tecnica

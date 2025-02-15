@@ -13,7 +13,7 @@
    PORT=3001
    ```
 
-   Esto nos dará como resultado `http://localhost:3001`.
+   Esto nos dará como resultado `http://localhost:3001`, es importante llenar el .env o sino el proyecto lanzara error, los .env son obligatorios.
 
 3. Después, en la consola, situado dentro de la raíz de nuestro back, debemos correr las migraciones. Para eso usaremos el comando:
 
