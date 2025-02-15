@@ -45,3 +45,5 @@ dist/
 build/
 out/
 .env
+
+database.sqlite
