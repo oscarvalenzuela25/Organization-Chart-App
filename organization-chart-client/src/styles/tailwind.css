@@ -1,0 +1,54 @@
+@import 'tailwindcss';
+@import 'tailwindcss-animated';
+@plugin "daisyui";
+
+@theme {
+  --color-base-custom: #1a202c;
+  --color-base-light-custom: #ececec;
+
+  --color-gray-custom: #dfdfec;
+  --color-gray-light-custom: #f0f0f6;
+
+  --color-white-custom: #ffffff;
+  --color-red-custom: #dd524c;
+
+  --color-gray-dark-custom: #9999a9;
+  --color-dark-custom: #46464e;
+
+  --color-blue-custom: #3662e3;
+  --color-black-translucent-custom: #00000033;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+.scrollbar-hide {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
+.writing-mode-vertical-rl {
+  writing-mode: sideways-lr;
+  text-orientation: mixed;
+}
+
+/* Scrollbar*/
+.scrollbar-thin {
+  scrollbar-width: thin; /* Firefox */
+  scrollbar-color: #9999a9 #f0f0f6; /* Firefox */
+}
+
+.scrollbar-thin::-webkit-scrollbar {
+  width: 8px; /* Chrome, Safari, Opera */
+}
+
+.scrollbar-thin::-webkit-scrollbar-track {
+  background: #f0f0f6; /* Chrome, Safari, Opera */
+}
+
+.scrollbar-thin::-webkit-scrollbar-thumb {
+  background-color: #4a5568; /* Chrome, Safari, Opera */
+  border-radius: 10px; /* Chrome, Safari, Opera */
+  border: 2px solid #edf2f7; /* Chrome, Safari, Opera */
+}

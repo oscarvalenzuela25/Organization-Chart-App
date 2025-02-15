@@ -1,0 +1,10 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap');
+
+:root {
+  font-family: 'Outfit', serif;
+  font-style: normal;
+
+  color: #000;
+  margin: 0;
+  padding: 0;
+}
