@@ -4,6 +4,8 @@
 
 **BD:** SQLite
 
+![BD](https://i.ibb.co/KjpGVQFr/BD.png)
+
 ## Pasos para levantar
 
 1. Crea un archivo `.env` o copia el `.env.example` que ya existe y cámbiale el nombre a `.env`.
