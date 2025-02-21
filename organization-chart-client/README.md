@@ -15,12 +15,16 @@
      VITE_API_URL=http://localhost:3001
      ```
 
-3. Por ultimo, digital
-   ```
-     npm run devel
-   ```
-   ¡Y listo! Con esto tienes el proyecto levantado para probar.
+3. Instalamos dependencias
 
-### Deuda tecnica
+   ```
+     npm -i
+   ```
 
-- Falto agregar las lineas que unen a los card padres con los hijos, se tiene pensado utilizar la libreria `React Flow` que trabaja con nodos
+4. Por ultimo, levantar el proyecto
+
+   ```
+   npm run devel
+   ```
+
+¡Y listo! Con esto tienes el proyecto levantado para probar.

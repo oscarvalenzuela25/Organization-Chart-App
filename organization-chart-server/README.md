@@ -17,19 +17,25 @@
 
    Esto nos dará como resultado `http://localhost:3001`, es importante llenar el .env o sino el proyecto lanzara error, los .env son obligatorios.
 
-3. Después, en la consola, situado dentro de la raíz de nuestro back, debemos correr las migraciones. Para eso usaremos el comando:
+3. Después, en la consola, situado dentro de la raíz de nuestro back, debemos instalar las dependencias:
+
+   ```
+   npm -i
+   ```
+
+4. Después, en la misma consola, debemos correr las migraciones. Para eso usaremos el comando:
 
    ```
    npm run db:migrate
    ```
 
-4. Si todo sale bien, ahora correremos los seeders para llenar con un poco de información la BD. Para mandar los seeders, el comando es:
+5. Si todo sale bien, ahora correremos los seeders para llenar con un poco de información la BD. Para mandar los seeders, el comando es:
 
    ```
    npm run db:seed:all
    ```
 
-5. Si todo sale bien, estamos listos para levantar nuestro proyecto. Para levantar el proyecto, hay que correr el comando:
+6. Si todo sale bien, estamos listos para levantar nuestro proyecto. Para levantar el proyecto, hay que correr el comando:
    ```
    npm run devel
    ```
