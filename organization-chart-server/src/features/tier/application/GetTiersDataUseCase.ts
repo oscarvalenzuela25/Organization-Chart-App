@@ -33,6 +33,11 @@ export class GetTiersDataUseCase {
           id: job.Division.id,
           name: job.Division.name,
         },
+        relations: job.JobRelations.map(relations => ({
+          id: relations.id,
+          jobParentId: relations.jobParentId,
+          jobChildId: relations.jobChildId,
+        })),
       })),
     }));
   }

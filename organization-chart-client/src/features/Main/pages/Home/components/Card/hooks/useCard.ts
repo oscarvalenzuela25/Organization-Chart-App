@@ -13,6 +13,7 @@ const jobDefault: Job = {
   openings: 0,
   candidates: [],
   division: { id: 0, name: '' },
+  relations: [],
 };
 const useCard = (job: Job) => {
   const [showUpdateCardModal, setShowUpdateCardModal] = useState(false);
@@ -87,6 +88,7 @@ const useCard = (job: Job) => {
     handleAddCard({
       payload: {
         tierId: job.tierId,
+        jobParentId: job.id,
       },
     });
   };

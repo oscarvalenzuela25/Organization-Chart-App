@@ -19,6 +19,8 @@ import { DivisionRepositoryImp } from '../../../division/infrastructure/reposito
 import { DivisionDatasource } from './../../../division/infrastructure/datasource/DivisionDatasource';
 import { UpdateJobUseCase } from '../../application/UpdateJobUseCase';
 import { UpdateJobUsersUseCase } from '../../application/UpdateJobUsersUseCase';
+import { JobRelationRepositoryImp } from './../../../jobRelation/infrastructure/repository/JobRelationRepositoryImp';
+import { JobRelationDatasource } from '../../../jobRelation/infrastructure/datasource/JobRelationDatasource';
 
 export class JobRoutes {
   static get getRoutes() {
@@ -31,10 +33,15 @@ export class JobRoutes {
     const tierRepositoryImp = new TierRepositoryImp(tierDatasource);
     const divisionDatasource = new DivisionDatasource();
     const divisionRepositoryImp = new DivisionRepositoryImp(divisionDatasource);
+    const jobRelationDatasource = new JobRelationDatasource();
+    const jobRelationRepositoryImp = new JobRelationRepositoryImp(
+      jobRelationDatasource
+    );
     const addJobUseCase = new AddJobUseCase(
       jobRepositoryImp,
       tierRepositoryImp,
-      divisionRepositoryImp
+      divisionRepositoryImp,
+      jobRelationRepositoryImp
     );
 
     const updateJobUseCase = new UpdateJobUseCase(jobRepositoryImp);

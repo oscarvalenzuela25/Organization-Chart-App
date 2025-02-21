@@ -47,7 +47,7 @@ export class UserJob extends Model {
       },
       {
         sequelize,
-        tableName: 'Usersjobs',
+        tableName: 'UsersJobs',
       }
     );
   }

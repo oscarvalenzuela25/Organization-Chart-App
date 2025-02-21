@@ -6,7 +6,7 @@ module.exports = {
     let transaction = await queryInterface.sequelize.transaction();
     try {
       await queryInterface.createTable(
-        'Divisions',
+        'JobRelations',
         {
           id: {
             type: Sequelize.INTEGER,
@@ -14,9 +14,25 @@ module.exports = {
             autoIncrement: true,
             primaryKey: true,
           },
-          name: {
-            type: Sequelize.STRING,
+          jobParentId: {
+            type: Sequelize.INTEGER,
             allowNull: false,
+            references: {
+              model: 'Jobs',
+              key: 'id',
+            },
+            onUpdate: 'CASCADE',
+            onDelete: 'CASCADE',
+          },
+          jobChildId: {
+            type: Sequelize.INTEGER,
+            allowNull: false,
+            references: {
+              model: 'Jobs',
+              key: 'id',
+            },
+            onUpdate: 'CASCADE',
+            onDelete: 'CASCADE',
           },
           createdAt: {
             type: Sequelize.DATE,
@@ -42,7 +58,7 @@ module.exports = {
   async down(queryInterface) {
     const transaction = await queryInterface.sequelize.transaction();
     try {
-      await queryInterface.dropTable('Divisions', {
+      await queryInterface.dropTable('JobRelations', {
         logging: console.log,
         transaction,
       });

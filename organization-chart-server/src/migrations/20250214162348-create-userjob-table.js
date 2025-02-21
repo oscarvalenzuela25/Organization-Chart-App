@@ -6,7 +6,7 @@ module.exports = {
     let transaction = await queryInterface.sequelize.transaction();
     try {
       await queryInterface.createTable(
-        'usersjobs',
+        'UsersJobs',
         {
           id: {
             type: Sequelize.INTEGER,
@@ -58,7 +58,7 @@ module.exports = {
   async down(queryInterface) {
     const transaction = await queryInterface.sequelize.transaction();
     try {
-      await queryInterface.dropTable('usersjobs', {
+      await queryInterface.dropTable('UsersJobs', {
         logging: console.log,
         transaction,
       });

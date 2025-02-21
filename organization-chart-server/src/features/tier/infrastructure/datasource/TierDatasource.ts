@@ -1,4 +1,11 @@
-import { Division, Job, Tier, User, UserJob } from '../../../../models';
+import {
+  Division,
+  Job,
+  Tier,
+  User,
+  UserJob,
+  JobRelations,
+} from '../../../../models';
 import { UpdateTierDTO } from '../../domain/DTO/UpdateTierDTO';
 import { TierType } from '../../domain/repository/TierRepository';
 import { Op } from 'sequelize';
@@ -25,6 +32,10 @@ export class TierDatasource {
                   attributes: ['id', 'name'],
                 },
               ],
+            },
+            {
+              model: JobRelations,
+              attributes: ['id', 'jobParentId', 'jobChildId'],
             },
           ],
         },

@@ -8,6 +8,12 @@ export type Division = {
   name: string;
 };
 
+export type Relation = {
+  id: number;
+  jobParentId: number;
+  jobChildId: number;
+};
+
 export type Job = {
   id: number;
   name: string;
@@ -15,6 +21,7 @@ export type Job = {
   openings: number;
   candidates: Array<Candidate>;
   division: Division;
+  relations: Array<Relation>;
 };
 
 export type JobDataToUpdate = {
@@ -26,4 +33,5 @@ export type JobDataToUpdate = {
 
 export type jobDataToCreated = {
   tierId: number;
+  jobParentId: number;
 };

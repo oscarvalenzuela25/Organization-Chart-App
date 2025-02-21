@@ -1,20 +1,15 @@
 import { DataTypes, Model, Sequelize } from 'sequelize';
-import { Tier } from './Tier';
-import { Division } from './Division';
-import { UserJob } from './UserJob';
-import { JobRelations } from './JobRelations';
+import { Job } from './Job';
 
-export class Job extends Model {
+export class JobRelations extends Model {
   declare id: number;
-  declare name: string;
-  declare openings: number;
-  declare tierId: number;
-  declare divisionId: number;
+  declare jobParentId: number;
+  declare jobChildId: number;
   declare createdAt: Date;
   declare updatedAt: Date;
 
   static initialize(sequelize: Sequelize) {
-    Job.init(
+    JobRelations.init(
       {
         id: {
           type: DataTypes.INTEGER,
@@ -22,28 +17,19 @@ export class Job extends Model {
           autoIncrement: true,
           primaryKey: true,
         },
-        name: {
-          type: DataTypes.STRING,
-          allowNull: true,
-        },
-        openings: {
-          type: DataTypes.NUMBER,
-          allowNull: false,
-          defaultValue: 0,
-        },
-        tierId: {
+        jobParentId: {
           type: DataTypes.INTEGER,
           allowNull: false,
           references: {
-            model: Tier,
+            model: Job,
             key: 'id',
           },
         },
-        divisionId: {
+        jobChildId: {
           type: DataTypes.INTEGER,
           allowNull: false,
           references: {
-            model: Division,
+            model: Job,
             key: 'id',
           },
         },
@@ -60,17 +46,13 @@ export class Job extends Model {
       },
       {
         sequelize,
-        tableName: 'Jobs',
+        tableName: 'JobRelations',
       }
     );
   }
 
   static associate() {
-    Job.belongsTo(Tier, { foreignKey: 'tierId' });
-    Job.belongsTo(Division, { foreignKey: 'divisionId' });
-
-    Job.hasMany(UserJob, { foreignKey: 'jobId' });
-    Job.hasMany(JobRelations, { foreignKey: 'jobParentId' });
-    Job.hasMany(JobRelations, { foreignKey: 'jobChildId' });
+    JobRelations.belongsTo(Job, { foreignKey: 'jobParentId' });
+    JobRelations.belongsTo(Job, { foreignKey: 'jobChildId' });
   }
 }

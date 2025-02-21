@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, RefObject } from 'react';
 import UpdateIcon from '../../../../../../icons/UpdateIcon';
 import IconButton from '../../../../../../components/IconButton';
 import { cva } from 'class-variance-authority';
@@ -6,11 +6,12 @@ import Card from '../Card';
 import { TierData } from '../../../../commons/types/Tier';
 import UpdateTierModal from '../../../../commons/components/UpdateTierModal';
 import useTierRow from './hooks/useTierRow';
-import ButtonZoom from '../../../../commons/components/ButtonZoom';
+// import ButtonZoom from '../../../../commons/components/ButtonZoom';
 
 type Props = {
   data: TierData;
   position: number;
+  jobRefs: RefObject<Record<number, HTMLDivElement | null>>;
 };
 
 const rowReziseVariant = cva('flex w-full transition-all duration-300', {
@@ -38,7 +39,7 @@ const rowBodyVariant = cva(
   }
 );
 
-const TierRow: FC<Props> = ({ data, position }) => {
+const TierRow: FC<Props> = ({ data, position, jobRefs }) => {
   const {
     countResize,
     showUpdateTierModal,
@@ -52,8 +53,8 @@ const TierRow: FC<Props> = ({ data, position }) => {
     handleCloseUpdateTierModal,
     handleSetTierSelected,
     handleSubmit,
-    handleAddResize,
-    handleRestResize,
+    // handleAddResize,
+    // handleRestResize,
   } = useTierRow(data, position);
   const rowBodyClasses = rowBodyVariant({ position: newPosition });
   const rowReziseClasses = rowReziseVariant({ resize: countResize });
@@ -82,14 +83,19 @@ const TierRow: FC<Props> = ({ data, position }) => {
 
         <div className={rowBodyClasses}>
           {jobs.map(job => (
-            <Card key={job.id} job={job} tierPosition={position + 1} />
+            <Card
+              key={job.id}
+              job={job}
+              tierPosition={position + 1}
+              ref={(el: HTMLDivElement) => (jobRefs.current[job.id] = el)}
+            />
           ))}
         </div>
 
-        <div className="absolute right-5 mt-5 flex flex-col items-center justify-center gap-4">
+        {/* <div className="absolute right-5 mt-5 flex flex-col items-center justify-center gap-4">
           <ButtonZoom type="zoomIn" onClick={handleAddResize} />
           <ButtonZoom type="zoomOut" onClick={handleRestResize} />
-        </div>
+        </div> */}
       </div>
 
       {showUpdateTierModal && (

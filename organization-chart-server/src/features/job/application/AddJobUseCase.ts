@@ -1,5 +1,6 @@
 import { CustomError } from '../../../utils/CustomError';
 import { DivisionRepositoryImp } from '../../division/infrastructure/repository/DivisionRepositoryImp';
+import { JobRelationRepositoryImp } from '../../jobRelation/infrastructure/repository/JobRelationRepositoryImp';
 import { AddJobDTO, AddJobDTOType } from '../domain/DTO/AddJobDTO';
 import { JobEntity } from '../domain/entities/JobEntity';
 import { JobRepositoryImp } from '../infrastructure/repository/JobRepositoryImp';
@@ -9,12 +10,13 @@ export class AddJobUseCase {
   constructor(
     private jobRepositoryImp: JobRepositoryImp,
     private tierRepositoryImp: TierRepositoryImp,
-    private divisionRepositoryImp: DivisionRepositoryImp
+    private divisionRepositoryImp: DivisionRepositoryImp,
+    private jobRelactionRepositoryImp: JobRelationRepositoryImp
   ) {}
 
   async execute(dto: AddJobDTO): Promise<JobEntity> {
     try {
-      const { tierId } = dto;
+      const { tierId, jobParentId } = dto;
       const nextTierId = await this.getTierId(tierId);
       const divisionId = await this.getDivisionId();
 
@@ -24,7 +26,13 @@ export class AddJobUseCase {
         tierId: nextTierId,
         divisionId,
       };
-      return await this.jobRepositoryImp.addJob(newJob);
+      const newJobCreated = await this.jobRepositoryImp.addJob(newJob);
+      await this.jobRelactionRepositoryImp.addJobRelation(
+        jobParentId,
+        newJobCreated.id
+      );
+
+      return newJobCreated;
     } catch (error) {
       throw CustomError.badRequest('Error adding job');
     }

@@ -28,9 +28,10 @@ const textOpeningsVariant = cva('text-[12px] underline leading-[1]', {
 type Props = {
   job: Job;
   tierPosition: number;
+  ref?: (x: HTMLDivElement) => void;
 };
 
-const Card: FC<Props> = ({ job, tierPosition }) => {
+const Card: FC<Props> = ({ job, tierPosition, ref }) => {
   const {
     attributes,
     listeners,
@@ -60,89 +61,97 @@ const Card: FC<Props> = ({ job, tierPosition }) => {
   });
 
   return (
-    <div className="flex flex-col items-center gap-2" style={style}>
-      <div className="flex flex-col w-[200px] rounded-lg shadow-lg">
-        <div
-          className="flex flex-col items-center w-full bg-white px-3 py-2 rounded-t-lg"
-          ref={setNodeRef}
-          {...listeners}
-          {...attributes}
-        >
-          <div className="flex justify-between w-full h-full">
-            <input
-              type="checkbox"
-              disabled
-              className="checkbox bg-gray-custom"
-            />
-            <TierIcon tierLevel={tierPosition} />
-          </div>
+    <>
+      <div
+        className="flex flex-col items-center gap-2 z-99"
+        style={style}
+        ref={ref}
+      >
+        <div className="flex flex-col w-[200px] rounded-lg shadow-lg">
+          <div
+            className="flex flex-col items-center w-full bg-white px-3 py-2 rounded-t-lg"
+            ref={setNodeRef}
+            {...listeners}
+            {...attributes}
+          >
+            <div className="flex justify-between w-full h-full">
+              <input
+                type="checkbox"
+                disabled
+                className="checkbox bg-gray-custom"
+              />
+              <TierIcon tierLevel={tierPosition} />
+            </div>
 
-          <p className="text-[20px] font-bold pt-3 pb-3 text-base-custom text-center">
-            {job.name}
-          </p>
+            <p className="text-[20px] font-bold pt-3 pb-3 text-base-custom text-center">
+              {job.name}
+            </p>
 
-          <div className="flex flex-col w-full">
-            <label className="text-base-custom/70 text-[10px]">Openings</label>
-            <p className={classesTextOpenings}>
-              {candidates}/{job.openings} employees
+            <div className="flex flex-col w-full">
+              <label className="text-base-custom/70 text-[10px]">
+                Openings
+              </label>
+              <p className={classesTextOpenings}>
+                {candidates}/{job.openings} employees
+              </p>
+            </div>
+
+            <p className="mt-2 text-[16px] text-base-custom/70">
+              {job.division.name}
             </p>
           </div>
 
-          <p className="mt-2 text-[16px] text-base-custom/70">
-            {job.division.name}
-          </p>
-        </div>
+          <div className="flex justify-end px-2 py-1 bg-gray-custom gap-1 rounded-b-lg">
+            <div className="tooltip" data-tip="Update users">
+              <IconButton
+                onClick={() => {
+                  handleSetJobSelected(job);
+                  handleShowUpdateUsersModal();
+                }}
+              >
+                <UsersIcon className="stroke-dark-custom" />
+              </IconButton>
+            </div>
 
-        <div className="flex justify-end px-2 py-1 bg-gray-custom/70 gap-1 rounded-b-lg">
-          <div className="tooltip" data-tip="Update users">
-            <IconButton
-              onClick={() => {
-                handleSetJobSelected(job);
-                handleShowUpdateUsersModal();
-              }}
-            >
-              <UsersIcon className="stroke-dark-custom" />
-            </IconButton>
-          </div>
+            <div className="tooltip" data-tip="Update job">
+              <IconButton
+                onClick={() => {
+                  handleSetJobSelected(job);
+                  handleShowUpdateCardModal();
+                }}
+              >
+                <UpdateIcon className="stroke-dark-custom" />
+              </IconButton>
+            </div>
 
-          <div className="tooltip" data-tip="Update job">
-            <IconButton
-              onClick={() => {
-                handleSetJobSelected(job);
-                handleShowUpdateCardModal();
-              }}
-            >
-              <UpdateIcon className="stroke-dark-custom" />
-            </IconButton>
-          </div>
-
-          <div className="tooltip" data-tip="Delete job">
-            <IconButton
-              onClick={() => {
-                handleSetJobSelected(job);
-                handleShowDeleteCardModal();
-              }}
-            >
-              <TrashIcon className="fill-dark-custom" />
-            </IconButton>
+            <div className="tooltip" data-tip="Delete job">
+              <IconButton
+                onClick={() => {
+                  handleSetJobSelected(job);
+                  handleShowDeleteCardModal();
+                }}
+              >
+                <TrashIcon className="fill-dark-custom" />
+              </IconButton>
+            </div>
           </div>
         </div>
+
+        <IconButton onClick={handleSubmitAddCard}>
+          <div className="flex items-center justify-center size-[47px]">
+            {validations.addCardIsLoading ? (
+              <Spinner size="lg" color="grayDarkCustom" />
+            ) : (
+              <PlusCircleIcon
+                width={47}
+                height={47}
+                scale={2}
+                className="fill-gray-dark-custom"
+              />
+            )}
+          </div>
+        </IconButton>
       </div>
-
-      <IconButton onClick={handleSubmitAddCard}>
-        <div className="flex items-center justify-center size-[47px]">
-          {validations.addCardIsLoading ? (
-            <Spinner size="lg" color="grayDarkCustom" />
-          ) : (
-            <PlusCircleIcon
-              width={47}
-              height={47}
-              scale={2}
-              className="fill-gray-dark-custom"
-            />
-          )}
-        </div>
-      </IconButton>
 
       {showUpdateCardModal && (
         <UpdateCardModal
@@ -171,7 +180,7 @@ const Card: FC<Props> = ({ job, tierPosition }) => {
           handleCloseModal={handleCloseUpdateUsersModal}
         />
       )}
-    </div>
+    </>
   );
 };
 

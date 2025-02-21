@@ -9,8 +9,10 @@ export type AddJobDTOType = {
 
 export class AddJobDTO {
   public tierId: number;
+  public jobParentId: number;
 
   constructor(req: Request) {
     this.tierId = req.body.tierId;
+    this.jobParentId = req.body.jobParentId;
   }
 }

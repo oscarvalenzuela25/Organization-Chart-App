@@ -17,6 +17,11 @@ export type Job = {
       name: string;
     };
   }[];
+  JobRelations: {
+    id: number;
+    jobParentId: number;
+    jobChildId: number;
+  }[];
 };
 
 export type TierType = {
@@ -38,6 +43,11 @@ export type FormattedJob = {
     id: number;
     name: string;
   };
+  relations: {
+    id: number;
+    jobParentId: number;
+    jobChildId: number;
+  }[];
 };
 
 export type FormattedTier = {

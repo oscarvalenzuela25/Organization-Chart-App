@@ -6,6 +6,7 @@ export const deleteJobParamsSchema = joi.object({
 
 export const addJobBodySchema = joi.object({
   tierId: joi.number().required(),
+  jobParentId: joi.number().required(),
 });
 
 export const updateJobParamsSchema = joi.object({

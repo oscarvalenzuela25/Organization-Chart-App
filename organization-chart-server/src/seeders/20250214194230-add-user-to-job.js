@@ -11,7 +11,7 @@ module.exports = {
     const [users] = await queryInterface.sequelize.query(userQuery);
     const [firstUser] = users;
 
-    await queryInterface.bulkInsert('Usersjobs', [
+    await queryInterface.bulkInsert('UsersJobs', [
       {
         jobId: firstJob.id,
         userId: firstUser.id,
@@ -22,6 +22,6 @@ module.exports = {
   },
 
   async down(queryInterface) {
-    await queryInterface.bulkDelete('Usersjobs', null, {});
+    await queryInterface.bulkDelete('UsersJobs', null, {});
   },
 };
